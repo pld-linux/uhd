@@ -12,8 +12,6 @@ Group:		X11/Libraries
 Source0:	http://files.ettus.com/binaries/uhd/uhd_%{ver}-release/%{name}-%{version}.tar.gz
 # Source0-md5:	84928825717678e77ffc400d73bcf412
 URL:		http://www.qcustomplot.com/
-BuildRequires:	QtCore-devel
-BuildRequires:	QtGui-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	doxygen
@@ -22,7 +20,6 @@ BuildRequires:	ncurses-devel
 BuildRequires:	orc-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python-cheetah
-BuildRequires:	qt4-build
 BuildRequires:	rpm-pythonprov
 BuildRequires:	udev-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
