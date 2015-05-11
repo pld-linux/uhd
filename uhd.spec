@@ -16,7 +16,15 @@ BuildRequires:	QtCore-devel
 BuildRequires:	QtGui-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.8.0
+BuildRequires:	doxygen
+BuildRequires:	libusb-devel
+BuildRequires:	ncurses-devel
+BuildRequires:	orc-devel
+BuildRequires:	pkgconfig
+BuildRequires:	python-cheetah
 BuildRequires:	qt4-build
+BuildRequires:	rpm-pythonprov
+BuildRequires:	udev-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		filterout	-flto
