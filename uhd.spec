@@ -94,13 +94,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/uhd_find_devices.1*
 %{_mandir}/man1/uhd_images_downloader.1*
 %{_mandir}/man1/uhd_usrp_probe.1*
-%{_mandir}/man1/usrp2_card_burner.1*
-%{_mandir}/man1/usrp_n2xx_simple_net_burner.1*
-%{_mandir}/man1/usrp_x3xx_fpga_burner.1*
+%{_mandir}/man1%{_prefix}p2_card_burner.1*
+%{_mandir}/man1%{_prefix}p_n2xx_simple_net_burner.1*
+%{_mandir}/man1%{_prefix}p_x3xx_fpga_burner.1*
 %attr(755,root,root) %{_libdir}/libuhd.so.00*.00*
 %attr(755,root,root) %ghost %{_libdir}/libuhd.so.003
 %dir %{_libdir}/%{name}
-%attr(755,root,root) %{_libdir}/%{name}/utils
+%dir %{_libdir}/%{name}/utils
+%attr(755,root,root) %{_libdir}/%{name}/utils/*.py
+%{_libdir}/%{name}/utils/uhd-usrp.rules
+%attr(755,root,root) %{_libdir}/%{name}/utils/*_eeprom
+%attr(755,root,root) %{_libdir}/%{name}/utils/*_utils
+%attr(755,root,root) %{_libdir}/%{name}/utils/*_sensors
+%dir %{_libdir}/%{name}/utils/latency
+%attr(755,root,root) %{_libdir}/%{name}/utils/latency/*
 
 %files devel
 %defattr(644,root,root,755)
@@ -114,23 +121,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/%{name}
 %dir %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/examples
-%{_libdir}/%{name}/examples/benchmark_rate
-%{_libdir}/%{name}/examples/fpgpio
-%{_libdir}/%{name}/examples/latency_test
-%{_libdir}/%{name}/examples/network_relay
-%{_libdir}/%{name}/examples/rx_ascii_art_dft
-%{_libdir}/%{name}/examples/rx_multi_samples
-%{_libdir}/%{name}/examples/rx_samples_to_file
-%{_libdir}/%{name}/examples/rx_samples_to_udp
-%{_libdir}/%{name}/examples/rx_timed_samples
-%{_libdir}/%{name}/examples/test_clock_synch
-%{_libdir}/%{name}/examples/test_dboard_coercion
-%{_libdir}/%{name}/examples/test_messages
-%{_libdir}/%{name}/examples/test_pps_input
-%{_libdir}/%{name}/examples/test_timed_commands
-%{_libdir}/%{name}/examples/transport_hammer
-%{_libdir}/%{name}/examples/tx_bursts
-%{_libdir}/%{name}/examples/tx_samples_from_file
-%{_libdir}/%{name}/examples/tx_timed_samples
-%{_libdir}/%{name}/examples/tx_waveforms
-%{_libdir}/%{name}/examples/txrx_loopback_to_file
+%attr(755,root,root) %{_libdir}/%{name}/examples/*
