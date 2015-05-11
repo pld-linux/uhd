@@ -1,4 +1,3 @@
-#
 
 %define	ver_major 3
 %define	ver_minor 8
@@ -8,7 +7,6 @@
 %define	ver_ %(printf "%03d_%03d_%03d" %{ver_major} %{ver_minor} %{ver_patch})
 
 Summary:	Universal Hardware Driver for Ettus Research products
-#Summary(pl.UTF-8):
 Name:		uhd
 Version:	%{ver_major}.%{ver_minor}.%{ver_patch}
 Release:	0.1
@@ -16,14 +14,12 @@ License:	GPL v3+
 Group:		X11/Libraries
 Source0:	http://files.ettus.com/binaries/uhd/uhd_%{ver}-release/%{name}-%{version}.tar.gz
 # Source0-md5:	84928825717678e77ffc400d73bcf412
-#Source1:	%{name}.cmake
 URL:		http://www.qcustomplot.com/
 BuildRequires:	QtCore-devel
 BuildRequires:	QtGui-devel
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	qt4-build
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-#Source0:	http://github.com/EttusResearch/uhd/archive/release_%{ver_}.tar.gz#/uhd-release_%{ver_}.tar.gz
 
 %define		filterout	-flto
 
@@ -130,4 +126,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/uhd/examples/tx_timed_samples
 %{_libdir}/uhd/examples/tx_waveforms
 %{_libdir}/uhd/examples/txrx_loopback_to_file
-
