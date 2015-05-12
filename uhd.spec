@@ -1,15 +1,10 @@
-%define	ver_major 3
-%define	ver_minor 8
-%define	ver_patch 3
-
-%define	ver %(printf "%03d.%03d.%03d" %{ver_major} %{ver_minor} %{ver_patch})
 Summary:	Universal Hardware Driver for Ettus Research products
 Name:		uhd
-Version:	%{ver_major}.%{ver_minor}.%{ver_patch}
+Version:	3.8.3
 Release:	0.1
 License:	GPL v3+
 Group:		X11/Libraries
-Source0:	http://files.ettus.com/binaries/uhd/uhd_%{ver}-release/%{name}-%{version}.tar.gz
+Source0:	http://files.ettus.com/binaries/uhd/uhd_003.008.003-release/%{name}-%{version}.tar.gz
 # Source0-md5:	84928825717678e77ffc400d73bcf412
 URL:		http://www.qcustomplot.com/
 BuildRequires:	boost-devel
