@@ -1,0 +1,17 @@
+--- UHD_3.10.1.1_release/CMakeLists.txt.orig	2017-01-27 22:22:55.000000000 +0100
++++ UHD_3.10.1.1_release/CMakeLists.txt	2020-07-09 21:06:53.997822406 +0200
+@@ -395,14 +395,6 @@
+ ########################################################################
+ # Create Pkg Config File
+ ########################################################################
+-FOREACH(inc ${Boost_INCLUDE_DIRS})
+-    LIST(APPEND UHD_PC_CFLAGS "-I${inc}")
+-ENDFOREACH(inc)
+-
+-FOREACH(lib ${Boost_LIBRARY_DIRS})
+-    LIST(APPEND UHD_PC_LIBS "-L${lib}")
+-ENDFOREACH(lib)
+-
+ #use space-separation format for the pc file
+ STRING(REPLACE ";" " " UHD_PC_REQUIRES "${UHD_PC_REQUIRES}")
+ STRING(REPLACE ";" " " UHD_PC_CFLAGS "${UHD_PC_CFLAGS}")
