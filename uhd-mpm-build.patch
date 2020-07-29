@@ -1,0 +1,40 @@
+--- uhd-3.15.0.0/mpm/lib/i2c/CMakeLists.txt.orig	2020-01-01 05:21:49.000000000 +0100
++++ uhd-3.15.0.0/mpm/lib/i2c/CMakeLists.txt	2020-07-10 21:45:41.727143057 +0200
+@@ -3,6 +3,8 @@
+ #
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ #
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_LARGEFILE64_SOURCE")
++
+ set(I2C_SOURCES
+     ${CMAKE_CURRENT_SOURCE_DIR}/i2cdev_iface.cpp
+     ${CMAKE_CURRENT_SOURCE_DIR}/i2c_regs_iface.cpp
+--- uhd-3.15.0.0/mpm/tools/eeprom.c.orig	2020-07-10 21:47:16.076631922 +0200
++++ uhd-3.15.0.0/mpm/tools/eeprom.c	2020-07-10 21:47:18.816617078 +0200
+@@ -278,7 +278,7 @@
+ 	size_t len = sizeof(*ep);
+ 	size_t got = 0;
+ 
+-	fd = open(path, O_WRONLY | O_CREAT);
++	fd = open(path, O_WRONLY | O_CREAT, 0666);
+ 	if (fd < 0) {
+ 		perror("Could not open file:\n");
+ 		return;
+@@ -303,7 +303,7 @@
+ 	size_t len = sizeof(*ep);
+ 	size_t got = 0;
+ 
+-	fd = open(path, O_WRONLY | O_CREAT);
++	fd = open(path, O_WRONLY | O_CREAT, 0666);
+ 	if (fd < 0) {
+ 		perror("Could not open file:\n");
+ 		return;
+@@ -397,7 +397,7 @@
+ 	size_t len = sizeof(*ep);
+ 	size_t i;
+ 
+-	fd = open(path, O_WRONLY | O_CREAT);
++	fd = open(path, O_WRONLY | O_CREAT, 0666);
+ 	if (fd < 0) {
+ 		perror("Could not open file:\n");
+ 		return;

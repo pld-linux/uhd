@@ -1,17 +1,17 @@
---- UHD_3.10.1.1_release/CMakeLists.txt.orig	2017-01-27 22:22:55.000000000 +0100
-+++ UHD_3.10.1.1_release/CMakeLists.txt	2020-07-09 21:06:53.997822406 +0200
-@@ -395,14 +395,6 @@
+--- uhd-3.15.0.0/host/CMakeLists.txt.orig	2020-07-10 06:56:50.762728346 +0200
++++ uhd-3.15.0.0/host/CMakeLists.txt	2020-07-10 07:16:02.483155608 +0200
+@@ -416,14 +416,6 @@
  ########################################################################
  # Create Pkg Config File
  ########################################################################
--FOREACH(inc ${Boost_INCLUDE_DIRS})
--    LIST(APPEND UHD_PC_CFLAGS "-I${inc}")
--ENDFOREACH(inc)
+-foreach(inc ${Boost_INCLUDE_DIRS})
+-    list(APPEND UHD_PC_CFLAGS "-I${inc}")
+-endforeach(inc)
 -
--FOREACH(lib ${Boost_LIBRARY_DIRS})
--    LIST(APPEND UHD_PC_LIBS "-L${lib}")
--ENDFOREACH(lib)
+-foreach(lib ${Boost_LIBRARY_DIRS})
+-    list(APPEND UHD_PC_LIBS "-L${lib}")
+-endforeach(lib)
 -
  #use space-separation format for the pc file
- STRING(REPLACE ";" " " UHD_PC_REQUIRES "${UHD_PC_REQUIRES}")
- STRING(REPLACE ";" " " UHD_PC_CFLAGS "${UHD_PC_CFLAGS}")
+ string(REPLACE ";" " " UHD_PC_REQUIRES "${UHD_PC_REQUIRES}")
+ string(REPLACE ";" " " UHD_PC_CFLAGS "${UHD_PC_CFLAGS}")
