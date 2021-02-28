@@ -91,9 +91,7 @@ dla sprzętu USRP) do produktów Ettus Research.
 Summary:	Documentation for UHD
 Summary(pl.UTF-8):	Dokumentacja do UHD
 Group:		Documentation
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description doc
 Documentation for USRP Hardware Driver for Ettus Research products.
