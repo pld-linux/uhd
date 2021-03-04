@@ -6,7 +6,7 @@ Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
 Version:	3.15.0.0
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
@@ -175,6 +175,7 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 install -d build-{host,mpm}
 cd build-host
 %cmake ../host \
+	-DUHD_VERSION="%{version}" \
 	-DENABLE_USB=ON
 
 %{__make}
