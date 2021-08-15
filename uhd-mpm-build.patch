@@ -1,5 +1,6 @@
---- uhd-3.15.0.0/mpm/lib/i2c/CMakeLists.txt.orig	2020-01-01 05:21:49.000000000 +0100
-+++ uhd-3.15.0.0/mpm/lib/i2c/CMakeLists.txt	2020-07-10 21:45:41.727143057 +0200
+diff -urNp -x '*.orig' uhd-4.1.0.1.org/mpm/lib/i2c/CMakeLists.txt uhd-4.1.0.1/mpm/lib/i2c/CMakeLists.txt
+--- uhd-4.1.0.1.org/mpm/lib/i2c/CMakeLists.txt	2021-07-13 17:10:44.000000000 +0200
++++ uhd-4.1.0.1/mpm/lib/i2c/CMakeLists.txt	2021-08-15 16:33:43.898704758 +0200
 @@ -3,6 +3,8 @@
  #
  # SPDX-License-Identifier: GPL-3.0-or-later
@@ -9,9 +10,10 @@
  set(I2C_SOURCES
      ${CMAKE_CURRENT_SOURCE_DIR}/i2cdev_iface.cpp
      ${CMAKE_CURRENT_SOURCE_DIR}/i2c_regs_iface.cpp
---- uhd-3.15.0.0/mpm/tools/eeprom.c.orig	2020-07-10 21:47:16.076631922 +0200
-+++ uhd-3.15.0.0/mpm/tools/eeprom.c	2020-07-10 21:47:18.816617078 +0200
-@@ -278,7 +278,7 @@
+diff -urNp -x '*.orig' uhd-4.1.0.1.org/mpm/tools/eeprom.c uhd-4.1.0.1/mpm/tools/eeprom.c
+--- uhd-4.1.0.1.org/mpm/tools/eeprom.c	2021-07-13 17:10:44.000000000 +0200
++++ uhd-4.1.0.1/mpm/tools/eeprom.c	2021-08-15 16:33:43.898704758 +0200
+@@ -278,7 +278,7 @@ void usrp_sulfur_eeprom_to_file(struct u
  	size_t len = sizeof(*ep);
  	size_t got = 0;
  
@@ -20,7 +22,7 @@
  	if (fd < 0) {
  		perror("Could not open file:\n");
  		return;
-@@ -303,7 +303,7 @@
+@@ -303,7 +303,7 @@ void usrp_sulfur_db_eeprom_to_file(struc
  	size_t len = sizeof(*ep);
  	size_t got = 0;
  
@@ -29,7 +31,7 @@
  	if (fd < 0) {
  		perror("Could not open file:\n");
  		return;
-@@ -397,7 +397,7 @@
+@@ -397,7 +397,7 @@ void usrp_sulfur_eeprom_to_i2c(struct us
  	size_t len = sizeof(*ep);
  	size_t i;
  
