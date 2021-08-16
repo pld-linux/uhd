@@ -290,7 +290,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-uhd
 %defattr(644,root,root,755)
 %dir %{py3_sitedir}/uhd
-%attr(755,root,root) %{py3_sitedir}/uhd/libpyuhd.so
+%attr(755,root,root) %{py3_sitedir}/uhd/libpyuhd.cpython-*.so
 %{py3_sitedir}/uhd/*.py
 %{py3_sitedir}/uhd/__pycache__
 
