@@ -170,8 +170,7 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/examples/python/*.py
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/utils/{converter_benchmark.py,usrp2_{card_burner,card_burner_gui,recovery}.py}
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/utils/latency/graph.py
-%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' mpm/python/{n3xx_bist,usrp_hwd.py,usrp_update_fs}
-%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' mpm/tools/mpm_{debug,shell}.py
+grep -rl '/usr/bin/env python3' . | xargs %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},'
 
 %build
 install -d build-{host,mpm}
