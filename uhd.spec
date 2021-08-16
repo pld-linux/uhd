@@ -267,7 +267,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libuhd.so.3.15.0
+%attr(755,root,root) %{_libdir}/libuhd.so.4.1.0
 %dir %{_libdir}/%{name}
 
 %files devel
@@ -316,7 +316,7 @@ rm -rf $RPM_BUILD_ROOT
 %files mpm-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libusrp-periphs.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libusrp-periphs.so.3
+%attr(755,root,root) %ghost %{_libdir}/libusrp-periphs.so.4
 
 %files mpm-devel
 %defattr(644,root,root,755)
