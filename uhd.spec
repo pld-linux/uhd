@@ -1,3 +1,5 @@
+# TODO:
+# - complete %files
 #
 # Conditional build
 %bcond_without	mpm	# Module Peripheral Manager (run on embedded devices)
@@ -7,7 +9,7 @@ Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
 Version:	4.1.0.1
-Release:	1
+Release:	0.1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
