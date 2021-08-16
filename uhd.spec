@@ -1,6 +1,7 @@
 #
 # Conditional build
 %bcond_without	mpm	# Module Peripheral Manager (run on embedded devices)
+%bcond_with	tests	# build tests
 
 Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
@@ -31,6 +32,7 @@ BuildRequires:	python3-devel >= 1:3.5
 BuildRequires:	python3-numpy >= 1.7
 BuildRequires:	python3-requests >= 2.0
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.742
 %if %{with mpm}
 BuildRequires:	udev-devel
 %endif
@@ -176,6 +178,7 @@ install -d build-{host,mpm}
 cd build-host
 %cmake ../host \
 	-DUHD_VERSION="%{version}" \
+	%{cmake_on_off tests ENABLE_TESTS} \
 	-DENABLE_USB=ON
 
 %{__make}
@@ -197,9 +200,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # outdated (binaries removed)
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/{octoclock_firmware_burner,usrp_n2xx_simple_net_burner,usrp_x3xx_fpga_burner}.1*
+%if %{with tests}
 # not packaging tests
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/%{name}/tests \
 	$RPM_BUILD_ROOT%{_libdir}/%{name}/utils/latency/run_tests.py
+%endif
 # packaged as %doc
 %{__rm} $RPM_BUILD_ROOT%{_docdir}/uhd/{LICENSE,README.md}
 
