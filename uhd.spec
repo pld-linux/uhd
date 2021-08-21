@@ -1,5 +1,3 @@
-# TODO:
-# - complete %files
 #
 # Conditional build
 %bcond_without	mpm	# Module Peripheral Manager (run on embedded devices)
@@ -9,7 +7,7 @@ Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
 Version:	4.1.0.1
-Release:	0.1
+Release:	1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
@@ -231,6 +229,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc host/{LICENSE,README.md}
+%attr(755,root,root) %{_bindir}/check-filesystem
+%attr(755,root,root) %{_bindir}/e320_bist
+%attr(755,root,root) %{_bindir}/eeprom-path
+%attr(755,root,root) %{_bindir}/eeprom-set-autoboot
+%attr(755,root,root) %{_bindir}/eeprom-wrapper
+%attr(755,root,root) %{_bindir}/rfnoc_image_builder
+%attr(755,root,root) %{_bindir}/uhd_adc_self_cal
 %attr(755,root,root) %{_bindir}/uhd_cal_rx_iq_balance
 %attr(755,root,root) %{_bindir}/uhd_cal_tx_dc_offset
 %attr(755,root,root) %{_bindir}/uhd_cal_tx_iq_balance
@@ -251,12 +256,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/usrp2_card_burner.1*
 %dir %{_libdir}/%{name}/utils
 %attr(755,root,root) %{_libdir}/%{name}/utils/b2xx_fx3_utils
+%attr(755,root,root) %{_libdir}/%{name}/utils/convert_cal_data.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/converter_benchmark
 %attr(755,root,root) %{_libdir}/%{name}/utils/converter_benchmark.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/fx2_init_eeprom
 %attr(755,root,root) %{_libdir}/%{name}/utils/octoclock_burn_eeprom
 %attr(755,root,root) %{_libdir}/%{name}/utils/query_gpsdo_sensors
 %attr(755,root,root) %{_libdir}/%{name}/utils/uhd_images_downloader.py
+%attr(755,root,root) %{_libdir}/%{name}/utils/uhd_power_cal.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/usrp2_card_burner.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/usrp2_recovery.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/usrp_burn_db_eeprom
@@ -265,6 +272,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}/utils/latency
 %attr(755,root,root) %{_libdir}/%{name}/utils/latency/graph.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/latency/responder
+%attr(755,root,root) %{_libdir}/%{name}/utils/latency/run_tests.py
 %{_datadir}/%{name}
 
 %files libs
@@ -295,6 +303,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py3_sitedir}/uhd/libpyuhd.cpython-*.so
 %{py3_sitedir}/uhd/*.py
 %{py3_sitedir}/uhd/__pycache__
+%{py3_sitedir}/uhd/dsp
+%{py3_sitedir}/uhd/imgbuilder
+%{py3_sitedir}/uhd/usrp
+%{py3_sitedir}/uhd/utils
 
 %if %{with mpm}
 %files mpm
@@ -337,4 +349,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/usrp_mpm/periph_manager
 %{py3_sitedir}/usrp_mpm/sys_utils
 %{py3_sitedir}/usrp_mpm/xports
+%{py3_sitedir}/usrp_mpm/simulator
 %endif
