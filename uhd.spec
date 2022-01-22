@@ -6,13 +6,13 @@
 Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
-Version:	4.1.0.1
+Version:	4.1.0.5
 Release:	1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	a05185b631e7f0491d76d75a2568219e
+# Source0-md5:	8fd12ef06fb56654edc6da7720fd925e
 Patch0:		%{name}-boost.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-link.patch
@@ -29,7 +29,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3.5
 BuildRequires:	python3-Mako >= 0.4.2
 BuildRequires:	python3-devel >= 1:3.5
-BuildRequires:	python3-numpy >= 1.7
+BuildRequires:	python3-numpy-devel >= 1.7
 BuildRequires:	python3-requests >= 2.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.742
