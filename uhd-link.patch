@@ -1,13 +1,11 @@
 Build libuhd_test as static to avoid visibility issues
---- uhd-3.15.0.0/host/tests/common/CMakeLists.txt.orig	2020-01-01 05:21:49.000000000 +0100
-+++ uhd-3.15.0.0/host/tests/common/CMakeLists.txt	2020-07-10 20:09:57.071597860 +0200
-@@ -8,7 +8,8 @@
+--- uhd-4.1.0.5/host/tests/common/CMakeLists.txt.orig	2022-01-25 21:48:04.385934019 +0100
++++ uhd-4.1.0.5/host/tests/common/CMakeLists.txt	2022-01-25 21:49:45.142054843 +0100
+@@ -8,6 +8,6 @@
  # Build uhd_test static lib
  ########################################################################
- include_directories("${CMAKE_SOURCE_DIR}/lib/include")
--add_library(uhd_test ${CMAKE_CURRENT_SOURCE_DIR}/mock_ctrl_iface_impl.cpp
+ include_directories("${UHD_SOURCE_DIR}/lib/include")
+-add_library(uhd_test
 +add_library(uhd_test STATIC
-+                     ${CMAKE_CURRENT_SOURCE_DIR}/mock_ctrl_iface_impl.cpp
-                      ${CMAKE_CURRENT_SOURCE_DIR}/mock_zero_copy.cpp
-                      ${CMAKE_SOURCE_DIR}/lib/rfnoc/graph_impl.cpp
-                      ${CMAKE_SOURCE_DIR}/lib/rfnoc/async_msg_handler.cpp
+     ${CMAKE_CURRENT_SOURCE_DIR}/mock_zero_copy.cpp
+ )

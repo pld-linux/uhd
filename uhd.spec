@@ -13,7 +13,6 @@ Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	8fd12ef06fb56654edc6da7720fd925e
-Patch0:		%{name}-boost.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-mpm-build.patch
@@ -162,9 +161,8 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 
 %prep
 %setup -q
-#%patch0 -p1
 %patch1 -p1
-#%patch2 -p1
+%patch2 -p1
 %patch3 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/examples/python/*.py
@@ -199,10 +197,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # outdated (binaries removed)
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/{octoclock_firmware_burner,usrp_n2xx_simple_net_burner,usrp_x3xx_fpga_burner}.1*
-%if %{with tests}
 # not packaging tests
+%{__rm}	$RPM_BUILD_ROOT%{_libdir}/%{name}/utils/latency/run_tests.py
+%if %{with tests}
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/%{name}/tests \
-	$RPM_BUILD_ROOT%{_libdir}/%{name}/utils/latency/run_tests.py
 %endif
 # packaged as %doc
 %{__rm} $RPM_BUILD_ROOT%{_docdir}/uhd/{LICENSE,README.md}
@@ -272,7 +270,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}/utils/latency
 %attr(755,root,root) %{_libdir}/%{name}/utils/latency/graph.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/latency/responder
-%attr(755,root,root) %{_libdir}/%{name}/utils/latency/run_tests.py
 %{_datadir}/%{name}
 
 %files libs
