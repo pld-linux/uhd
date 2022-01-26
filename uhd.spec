@@ -17,18 +17,17 @@ Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-mpm-build.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
-BuildRequires:	boost-devel >= 1.58
-BuildRequires:	cmake >= 3.5.1
+BuildRequires:	boost-devel >= 1.66
+BuildRequires:	cmake >= 3.8
 BuildRequires:	doxygen
-BuildRequires:	gpsd-devel >= 3.11
-BuildRequires:	libstdc++-devel >= 6:5
+BuildRequires:	libstdc++-devel >= 6:6.3
 BuildRequires:	libusb-devel >= 1.0
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
-BuildRequires:	python3 >= 1:3.5
+BuildRequires:	python3 >= 1:3.6
 BuildRequires:	python3-Mako >= 0.4.2
 BuildRequires:	python3-devel >= 1:3.5
-BuildRequires:	python3-numpy-devel >= 1.7
+BuildRequires:	python3-numpy-devel >= 1.11
 BuildRequires:	python3-requests >= 2.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.742
@@ -66,7 +65,7 @@ Summary:	Development files for USRP Hardware Driver library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki USRP Hardware Driver
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	boost-devel >= 1.53
+Requires:	boost-devel >= 1.66
 
 %description devel
 Header files for USRP Hardware Driver for Ettus Research products.
@@ -232,7 +231,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc host/{LICENSE,README.md}
+%doc CHANGELOG host/{LICENSE,README.md}
 %attr(755,root,root) %{_bindir}/check-filesystem
 %attr(755,root,root) %{_bindir}/e320_bist
 %attr(755,root,root) %{_bindir}/eeprom-path
