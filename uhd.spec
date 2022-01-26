@@ -200,7 +200,7 @@ rm -rf $RPM_BUILD_ROOT
 # not packaging tests
 %{__rm}	$RPM_BUILD_ROOT%{_libdir}/%{name}/utils/latency/run_tests.py
 %if %{with tests}
-%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/%{name}/tests \
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/%{name}/tests
 %endif
 # packaged as %doc
 %{__rm} $RPM_BUILD_ROOT%{_docdir}/uhd/{LICENSE,README.md}
@@ -210,6 +210,12 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/aurora_bist_test.py
+
+# combine all rules
+LC_ALL=C sort -u mpm/systemd/udev/????/70-sfp-net.rules >$RPM_BUILD_ROOT/lib/udev/rules.d/70-sfp-net.rules
+
+# configuration examples
+%{__rm} $RPM_BUILD_ROOT/lib/systemd/network/{eth0,int0,sfp*}.network
 %endif
 
 %py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
@@ -322,7 +328,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/n3xx_bist
 %attr(755,root,root) %{_bindir}/usrp_hwd.py
 %attr(755,root,root) %{_bindir}/usrp_update_fs
+/lib/udev/rules.d/70-sfp-net.rules
 %{systemdunitdir}/usrp-hwd.service
+/usr/lib/sysctl.d/usrp-hwd.conf
 
 %files mpm-libs
 %defattr(644,root,root,755)
