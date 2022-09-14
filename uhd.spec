@@ -1,25 +1,29 @@
 #
 # Conditional build
 %bcond_without	mpm	# Module Peripheral Manager (run on embedded devices)
+%bcond_with	dpdk	# DPDK support
 %bcond_with	tests	# build tests
 
 Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
-Version:	4.1.0.5
-Release:	4
+Version:	4.2.0.1
+Release:	1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	8fd12ef06fb56654edc6da7720fd925e
+# Source0-md5:	dabf1c016e20f4398133a390c9fa4a4f
 Patch1:		%{name}-libdir.patch
-Patch2:		%{name}-link.patch
 Patch3:		%{name}-mpm-build.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
 BuildRequires:	boost-devel >= 1.66
 BuildRequires:	cmake >= 3.8
 BuildRequires:	doxygen
+%if %{with dpdk}
+BuildRequires:	dpdk-devel >= 18.11
+BuildRequires:	dpdk-devel < 21.12
+%endif
 BuildRequires:	libstdc++-devel >= 6:6.3
 BuildRequires:	libusb-devel >= 1.0
 BuildRequires:	ncurses-devel
@@ -35,7 +39,11 @@ BuildRequires:	rpmbuild(macros) >= 1.742
 BuildRequires:	udev-devel
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	python3-uhd = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# per_lcore__lcore_id, per_lcore__rte_errno non-function symbols from dpdk
+%define		skip_post_check_so	libuhd.so.*
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -161,7 +169,6 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/examples/python/*.py
@@ -174,6 +181,7 @@ install -d build-{host,mpm}
 cd build-host
 %cmake ../host \
 	-DUHD_VERSION="%{version}" \
+	%{!?with_dpdk:-DENABLE_DPDK=OFF} \
 	%{cmake_on_off tests ENABLE_TESTS} \
 	-DENABLE_USB=ON
 
@@ -195,7 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # outdated (binaries removed)
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/{octoclock_firmware_burner,usrp_n2xx_simple_net_burner,usrp_x3xx_fpga_burner}.1*
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/usrp_n2xx_simple_net_burner.1*
 # not packaging tests
 %{__rm}	$RPM_BUILD_ROOT%{_libdir}/%{name}/utils/latency/run_tests.py
 %if %{with tests}
@@ -233,10 +241,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGELOG host/{LICENSE,README.md}
 %attr(755,root,root) %{_bindir}/check-filesystem
-%attr(755,root,root) %{_bindir}/e320_bist
-%attr(755,root,root) %{_bindir}/eeprom-path
-%attr(755,root,root) %{_bindir}/eeprom-set-autoboot
-%attr(755,root,root) %{_bindir}/eeprom-wrapper
 %attr(755,root,root) %{_bindir}/rfnoc_image_builder
 %attr(755,root,root) %{_bindir}/uhd_adc_self_cal
 %attr(755,root,root) %{_bindir}/uhd_cal_rx_iq_balance
@@ -248,6 +252,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/uhd_images_downloader
 %attr(755,root,root) %{_bindir}/uhd_usrp_probe
 %attr(755,root,root) %{_bindir}/usrp2_card_burner
+%attr(755,root,root) %{_bindir}/usrpctl
 %{_mandir}/man1/uhd_cal_rx_iq_balance.1*
 %{_mandir}/man1/uhd_cal_tx_dc_offset.1*
 %{_mandir}/man1/uhd_cal_tx_iq_balance.1*
@@ -257,6 +262,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/uhd_images_downloader.1*
 %{_mandir}/man1/uhd_usrp_probe.1*
 %{_mandir}/man1/usrp2_card_burner.1*
+%{_mandir}/man1/usrpctl.1*
 %dir %{_libdir}/%{name}/utils
 %attr(755,root,root) %{_libdir}/%{name}/utils/b2xx_fx3_utils
 %attr(755,root,root) %{_libdir}/%{name}/utils/convert_cal_data.py
@@ -279,7 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libuhd.so.4.1.0
+%attr(755,root,root) %{_libdir}/libuhd.so.4.2.0
 %dir %{_libdir}/%{name}
 
 %files devel
@@ -308,6 +314,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/uhd/dsp
 %{py3_sitedir}/uhd/imgbuilder
 %{py3_sitedir}/uhd/usrp
+%{py3_sitedir}/uhd/usrpctl
 %{py3_sitedir}/uhd/utils
 
 %if %{with mpm}
