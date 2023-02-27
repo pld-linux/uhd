@@ -7,13 +7,13 @@
 Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
-Version:	4.2.0.1
-Release:	2
+Version:	4.4.0.0
+Release:	1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	dabf1c016e20f4398133a390c9fa4a4f
+# Source0-md5:	d91249b0114b2ac2fc36457f294ee55b
 Patch1:		%{name}-libdir.patch
 Patch3:		%{name}-mpm-build.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
@@ -285,7 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libuhd.so.4.2.0
+%attr(755,root,root) %{_libdir}/libuhd.so.4.4.0
 %dir %{_libdir}/%{name}
 
 %files devel
