@@ -31,7 +31,8 @@ BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3.6
 BuildRequires:	python3-Mako >= 0.4.2
-BuildRequires:	python3-devel >= 1:3.5
+BuildRequires:	python3-devel >= 1:3.6
+BuildRequires:	python3-modules >= 1:3.6
 BuildRequires:	python3-numpy-devel >= 1.11
 BuildRequires:	python3-requests >= 2.0
 BuildRequires:	rpm-build >= 4.6
