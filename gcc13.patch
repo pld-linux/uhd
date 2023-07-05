@@ -1,0 +1,11 @@
+--- uhd-4.4.0.0/mpm/lib/mykonos/ad937x_device_types.hpp.orig	2023-01-27 22:17:39.000000000 +0100
++++ uhd-4.4.0.0/mpm/lib/mykonos/ad937x_device_types.hpp	2023-07-05 19:16:33.157140559 +0200
+@@ -11,6 +11,8 @@
+ #include <uhd/types/direction.hpp>
+ #include <uhd/types/ranges.hpp>
+ 
++#include <cstdint>
++
+ namespace mpm { namespace ad937x { namespace device {
+ enum class build_type_t { RELEASE, DEBUG, TEST_OBJECT };
+ 

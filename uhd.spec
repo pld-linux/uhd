@@ -14,6 +14,7 @@ Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	d91249b0114b2ac2fc36457f294ee55b
+Patch0:		gcc13.patch
 Patch1:		%{name}-libdir.patch
 Patch3:		%{name}-mpm-build.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
@@ -168,6 +169,7 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 %patch3 -p1
 
