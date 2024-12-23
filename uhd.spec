@@ -44,6 +44,8 @@ BuildRequires:	udev-devel
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	python3-uhd = %{version}-%{release}
+# Host compiler must support std::atomic
+ExclusiveArch:	%{x8664} x32
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # per_lcore__lcore_id, per_lcore__rte_errno non-function symbols from dpdk
