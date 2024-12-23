@@ -26,6 +26,9 @@ BuildRequires:	doxygen
 BuildRequires:	dpdk-devel >= 18.11
 BuildRequires:	dpdk-devel < 21.12
 %endif
+%ifnarch %arch_with_atomics64
+BuildRequires:	libatomic-devel
+%endif
 BuildRequires:	libstdc++-devel >= 6:6.3
 BuildRequires:	libusb-devel >= 1.0
 BuildRequires:	ncurses-devel
@@ -38,7 +41,7 @@ BuildRequires:	python3-numpy-devel >= 1.11
 BuildRequires:	python3-requests >= 2.0
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.742
+BuildRequires:	rpmbuild(macros) >= 2.025
 %if %{with mpm}
 BuildRequires:	udev-devel
 %endif
