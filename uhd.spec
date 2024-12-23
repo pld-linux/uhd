@@ -7,16 +7,17 @@
 Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
-Version:	4.4.0.0
-Release:	2
+Version:	4.7.0.0
+Release:	1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	d91249b0114b2ac2fc36457f294ee55b
+# Source0-md5:	8bd35c962d47822e9e4fc8572e2d2845
 Patch0:		gcc13.patch
 Patch1:		%{name}-libdir.patch
 Patch3:		%{name}-mpm-build.patch
+Patch4:		boost-1.87.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
 BuildRequires:	boost-devel >= 1.66
 BuildRequires:	cmake >= 3.8
@@ -171,9 +172,10 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/examples/python/*.py
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/utils/{converter_benchmark.py,usrp2_{card_burner,card_burner_gui,recovery}.py}
@@ -289,7 +291,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libuhd.so.4.4.0
+%attr(755,root,root) %{_libdir}/libuhd.so.4.7.0
 %dir %{_libdir}/%{name}
 
 %files devel
