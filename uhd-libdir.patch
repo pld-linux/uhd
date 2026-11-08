@@ -13,6 +13,6 @@ diff -urNp -x '*.orig' uhd-4.1.0.1.org/host/CMakeLists.txt uhd-4.1.0.1/host/CMak
 -    list(APPEND UHD_PC_LIBS "-L${lib}")
 -endforeach(lib)
 -
- #use space-separation format for the pc file
+ # Use space-separation format for the pc file
  string(REPLACE ";" " " UHD_PC_REQUIRES "${UHD_PC_REQUIRES}")
  string(REPLACE ";" " " UHD_PC_CFLAGS "${UHD_PC_CFLAGS}")

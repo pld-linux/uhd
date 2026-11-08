@@ -7,17 +7,15 @@
 Summary:	Universal Hardware Driver for Ettus Research products
 Summary(pl.UTF-8):	Uniwersalny sterownik sprzętowy do produktów Ettus Research
 Name:		uhd
-Version:	4.7.0.0
-Release:	6
+Version:	4.11.0.0
+Release:	1
 License:	GPL v3+
 Group:		Applications/System
 #Source0Download: https://github.com/EttusResearch/uhd/releases
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	8bd35c962d47822e9e4fc8572e2d2845
-Patch0:		gcc13.patch
+# Source0-md5:	d6e7cb4f8bd2b290fe4acbf33e3d4491
 Patch1:		%{name}-libdir.patch
 Patch3:		%{name}-mpm-build.patch
-Patch4:		boost-1.87.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
 BuildRequires:	boost-devel >= 1.66
 BuildRequires:	cmake >= 3.8
@@ -175,10 +173,8 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 
 %prep
 %setup -q
-%patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 3 -p1
-%patch -P 4 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/examples/python/*.py
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' host/utils/{converter_benchmark.py,usrp2_{card_burner,card_burner_gui,recovery}.py}
@@ -211,15 +207,14 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build-host install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# outdated (binaries removed)
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/usrp_n2xx_simple_net_burner.1*
 # not packaging tests
 %{__rm}	$RPM_BUILD_ROOT%{_libdir}/%{name}/utils/latency/run_tests.py
 %if %{with tests}
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/%{name}/tests
 %endif
 # packaged as %doc
-%{__rm} $RPM_BUILD_ROOT%{_docdir}/uhd/{LICENSE,README.md}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/doxygen
+%{__rm} $RPM_BUILD_ROOT%{_docdir}/{LICENSE,README.md}
 
 %if %{with mpm}
 %{__make} -C build-mpm install \
@@ -251,6 +246,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGELOG host/{LICENSE,README.md}
 %attr(755,root,root) %{_bindir}/check-filesystem
 %attr(755,root,root) %{_bindir}/rfnoc_image_builder
+%attr(755,root,root) %{_bindir}/rfnoc_modtool
 %attr(755,root,root) %{_bindir}/uhd_adc_self_cal
 %attr(755,root,root) %{_bindir}/uhd_cal_rx_iq_balance
 %attr(755,root,root) %{_bindir}/uhd_cal_tx_dc_offset
@@ -262,6 +258,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/uhd_usrp_probe
 %attr(755,root,root) %{_bindir}/usrp2_card_burner
 %attr(755,root,root) %{_bindir}/usrpctl
+%{_mandir}/man1/rfnoc_image_builder.1.gz
+%{_mandir}/man1/rfnoc_modtool.1.gz
+%{_mandir}/man1/uhd_adc_self_cal.1.gz
 %{_mandir}/man1/uhd_cal_rx_iq_balance.1*
 %{_mandir}/man1/uhd_cal_tx_dc_offset.1*
 %{_mandir}/man1/uhd_cal_tx_iq_balance.1*
@@ -274,14 +273,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/usrpctl.1*
 %dir %{_libdir}/%{name}/utils
 %attr(755,root,root) %{_libdir}/%{name}/utils/b2xx_fx3_utils
-%attr(755,root,root) %{_libdir}/%{name}/utils/convert_cal_data.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/converter_benchmark
 %attr(755,root,root) %{_libdir}/%{name}/utils/converter_benchmark.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/fx2_init_eeprom
 %attr(755,root,root) %{_libdir}/%{name}/utils/octoclock_burn_eeprom
 %attr(755,root,root) %{_libdir}/%{name}/utils/query_gpsdo_sensors
 %attr(755,root,root) %{_libdir}/%{name}/utils/uhd_images_downloader.py
-%attr(755,root,root) %{_libdir}/%{name}/utils/uhd_power_cal.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/usrp2_card_burner.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/usrp2_recovery.py
 %attr(755,root,root) %{_libdir}/%{name}/utils/usrp_burn_db_eeprom
@@ -294,7 +291,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libuhd.so.4.7.0
+%attr(755,root,root) %{_libdir}/libuhd.so.4.11.0
 %dir %{_libdir}/%{name}
 
 %files devel
@@ -312,7 +309,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%{_docdir}/%{name}
+%doc build-host/docs/doxygen/html/*
 
 %files -n python3-uhd
 %defattr(644,root,root,755)
@@ -321,10 +318,14 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/uhd/*.py
 %{py3_sitedir}/uhd/__pycache__
 %{py3_sitedir}/uhd/dsp
-%{py3_sitedir}/uhd/imgbuilder
+%{py3_sitedir}/uhd/rfnoc_utils
 %{py3_sitedir}/uhd/usrp
+%{py3_sitedir}/uhd/usrp_clock
 %{py3_sitedir}/uhd/usrpctl
 %{py3_sitedir}/uhd/utils
+%if %{with mpm}
+%{py3_sitedir}/usrp_mpm
+%endif
 
 %if %{with mpm}
 %files mpm

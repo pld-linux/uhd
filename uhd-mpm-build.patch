@@ -14,29 +14,29 @@ diff -urNp -x '*.orig' uhd-4.1.0.1.org/mpm/tools/eeprom.c uhd-4.1.0.1/mpm/tools/
 --- uhd-4.1.0.1.org/mpm/tools/eeprom.c	2021-07-13 17:10:44.000000000 +0200
 +++ uhd-4.1.0.1/mpm/tools/eeprom.c	2021-08-15 16:33:43.898704758 +0200
 @@ -278,7 +278,7 @@ void usrp_sulfur_eeprom_to_file(struct u
- 	size_t len = sizeof(*ep);
- 	size_t got = 0;
+     size_t len = sizeof(*ep);
+     size_t got = 0;
  
--	fd = open(path, O_WRONLY | O_CREAT);
-+	fd = open(path, O_WRONLY | O_CREAT, 0666);
- 	if (fd < 0) {
- 		perror("Could not open file:\n");
- 		return;
+-    fd = open(path, O_WRONLY | O_CREAT);
++    fd = open(path, O_WRONLY | O_CREAT, 0666);
+     if (fd < 0) {
+         perror("Could not open file:\n");
+         return;
 @@ -303,7 +303,7 @@ void usrp_sulfur_db_eeprom_to_file(struc
- 	size_t len = sizeof(*ep);
- 	size_t got = 0;
+     size_t len = sizeof(*ep);
+     size_t got = 0;
  
--	fd = open(path, O_WRONLY | O_CREAT);
-+	fd = open(path, O_WRONLY | O_CREAT, 0666);
- 	if (fd < 0) {
- 		perror("Could not open file:\n");
- 		return;
+-    fd = open(path, O_WRONLY | O_CREAT);
++    fd = open(path, O_WRONLY | O_CREAT, 0666);
+     if (fd < 0) {
+         perror("Could not open file:\n");
+         return;
 @@ -397,7 +397,7 @@ void usrp_sulfur_eeprom_to_i2c(struct us
- 	size_t len = sizeof(*ep);
- 	size_t i;
+     size_t len = sizeof(*ep);
+     size_t i;
  
--	fd = open(path, O_WRONLY | O_CREAT);
-+	fd = open(path, O_WRONLY | O_CREAT, 0666);
- 	if (fd < 0) {
- 		perror("Could not open file:\n");
- 		return;
+-    fd = open(path, O_WRONLY | O_CREAT);
++    fd = open(path, O_WRONLY | O_CREAT, 0666);
+     if (fd < 0) {
+         perror("Could not open file:\n");
+         return;
