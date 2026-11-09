@@ -24,6 +24,7 @@ BuildRequires:	doxygen
 BuildRequires:	dpdk-devel >= 18.11
 BuildRequires:	dpdk-devel < 21.12
 %endif
+BuildRequires:	grpc-devel
 %ifnarch %arch_with_atomics64
 BuildRequires:	libatomic-devel
 %endif
@@ -37,6 +38,7 @@ BuildRequires:	python3-devel >= 1:3.6
 BuildRequires:	python3-modules >= 1:3.6
 BuildRequires:	python3-numpy-devel >= 1.11
 BuildRequires:	python3-requests >= 2.0
+BuildRequires:	python3-ruamel.yaml
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 2.025
@@ -188,6 +190,7 @@ cd build-host
 	-DUHD_VERSION="%{version}" \
 	%{!?with_dpdk:-DENABLE_DPDK=OFF} \
 	%{cmake_on_off tests ENABLE_TESTS} \
+	-DENABLE_PYMOD_UTILS=ON \
 	-DENABLE_USB=ON
 
 %{__make}
