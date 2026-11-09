@@ -18,6 +18,7 @@ Patch1:		%{name}-libdir.patch
 Patch3:		%{name}-mpm-build.patch
 URL:		https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/
 BuildRequires:	boost-devel >= 1.66
+BuildRequires:	c-ares-devel
 BuildRequires:	cmake >= 3.8
 BuildRequires:	doxygen
 %if %{with dpdk}
@@ -32,11 +33,13 @@ BuildRequires:	libstdc++-devel >= 6:6.3
 BuildRequires:	libusb-devel >= 1.0
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
+BuildRequires:	protobuf-devel
 BuildRequires:	python3 >= 1:3.6
 BuildRequires:	python3-Mako >= 0.4.2
 BuildRequires:	python3-devel >= 1:3.6
 BuildRequires:	python3-modules >= 1:3.6
 BuildRequires:	python3-numpy-devel >= 1.11
+BuildRequires:	python3-pybind11
 BuildRequires:	python3-requests >= 2.0
 BuildRequires:	python3-ruamel.yaml
 BuildRequires:	rpm-build >= 4.6
@@ -51,6 +54,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # per_lcore__lcore_id, per_lcore__rte_errno non-function symbols from dpdk
 %define		skip_post_check_so	libuhd.so.*
+
+%ifarch x32
+%define		_enable_debug_packages	0
+%endif
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -184,6 +191,10 @@ Biblioteka USRP Module Peripheral Manager dla Pythona.
 grep -rl '/usr/bin/env python3' . | xargs %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},'
 
 %build
+%ifarch x32
+export CFLAGS="$CFLAGS -g0"
+export CXXFLAGS="$CXXFLAGS -g0"
+%endif
 install -d build-{host,mpm}
 cd build-host
 %cmake ../host \
